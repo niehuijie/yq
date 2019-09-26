@@ -1,1 +1,166 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1"><link rel=icon href=/favicon.ico><title>vue</title><link href=/css/about.f0d2f1b1.css rel=prefetch><link href=/js/about.104c97eb.js rel=prefetch><link href=/css/app.371758e3.css rel=preload as=style><link href=/js/app.4b58c9ac.js rel=preload as=script><link href=/js/chunk-vendors.a8a96155.js rel=preload as=script><link href=/css/app.371758e3.css rel=stylesheet></head><body><noscript><strong>We're sorry but vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id=app></div><script src=/js/chunk-vendors.a8a96155.js></script><script src=/js/app.4b58c9ac.js></script></body></html>
+<!--
+ * @Description: In User Settings Edit
+ * @Author: your name
+ * @Date: 2019-09-26 14:14:36
+ * @LastEditTime: 2019-09-26 14:23:32
+ * @LastEditors: Please set LastEditors
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>爱的抱抱</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body,
+        #app {
+            width: 100%;
+            height: 100%;
+        }
+
+        .box {
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #fff;
+        }
+
+        .section {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .fadeInDown {
+            opacity: 0;
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+            animation-duration: 0s;
+            animation-fill-mode: both;
+
+        }
+
+        .animated {
+            -webkit-animation-duration: .5s;
+            animation-duration: .5s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translate3d(0, -100%, 0);
+                transform: translate3d(0, -100%, 0);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: none;
+                transform: none;
+            }
+        }
+    </style>
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="box" ref="box">
+            <div class="section" ref="main">
+                <span class="fadeInDown" :style="{'animation-delay':([index]*0.2)+'s'}" v-for="(item,index) in text"
+                    :key="Date.parse(new Date())">{{item}}</span>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                totalTime: 0,
+                text: '',
+            },
+            methods: {
+                myAnimate(text) {
+                    var that = this;
+                    this.totalTime += text.time;
+                    console.log(this.totalTime)
+
+                    setTimeout(function () {
+                        console.log(that.totalTime)
+
+                        if (text.page > 1) {
+                            that.text = (text.text).split(',');
+                            console.log(that.text)
+                        } else {
+                            that.text = text.text;
+                        }
+
+
+                        that.$refs.box.style.fontSize = 50 + 'px';
+                    }, that.totalTime);
+
+                }
+            },
+            mounted() {
+                var word = [
+                    {
+                        text: '前,方,高,能',
+                        page: 4,
+                        time: 0,
+                        style: "h"
+                    },
+                    {
+                        text: '这,不,是,P,P,T',
+                        page: 6,
+                        time: 800,
+                        style: "h"
+                    }, {
+                        text: '这,是',
+                        page: 2,
+                        time: 1200,
+                        style: "h"
+                    }, {
+                        text: '我,对',
+                        page: 2,
+                        time: 400,
+                        style: "h"
+                    }, {
+                        text: '杨,倩',
+                        page: 2,
+                        time: 400,
+                        style: "h"
+                    }, {
+                        text: '爱,的,宣,言',
+                        page: 4,
+                        time: 800,
+                        style: "h"
+                    }, {
+                        text: '我,爱,你',
+                        page: 3,
+                        time: 2000,
+                        style: "h"
+                    }
+                ]
+                // word = word.split(',');
+                for (var i = 0; i < word.length; i++) {
+                    this.myAnimate(word[i]);
+                }
+            },
+        })
+    </script>
+</body>
+
+</html>
